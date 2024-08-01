@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Postion {
+  id String @id
+  employees Employee[]
+  shifts Shift[]
+}
+
+model Status {
+  id String @id
+  shifts Shift[]
+}
+
+model Location {
+  id    Int     @default(autoincrement()) @id 
+  name String
+  employees Employee[]    
+  shifts Shift[]
+}
+
+model Employee {
+  id    Int     @default(autoincrement()) @id 
+  name  String?
+  position Postion? @relation(fields: [positionId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  positionId String
+  location Location?   @relation(fields: [locationId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  locationId  Int
+  shifts Shift[]
+}
+
+model Shift {
+  id    Int     @default(autoincrement()) @id 
+  startsAt DateTime
+  endsAt DateTime
+  position Postion? @relation(fields: [positionId], references: [id],  onDelete: Restrict, onUpdate: NoAction)
+  positionId String
+  status Status? @relation(fields: [statusId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  statusId String
+  location Location?   @relation(fields: [locationId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  locationId  Int  
+  employee Employee? @relation(fields: [employeeId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  employeeId Int?
+}
