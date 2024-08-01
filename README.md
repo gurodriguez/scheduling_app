@@ -1,8 +1,9 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Schedule App Api
 
 ## Installation
+Prerequisites: Please use Node V.18 or higher
 
 ```bash
 $ npm install
@@ -20,7 +21,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-The go to http://localhost:3000/api
+Theh go to http://localhost:3000/api to test the API endpoints
 
 ## Test
 
@@ -40,4 +41,5 @@ $ npm run test:cov
 This app was made with [Nest](https://github.com/nestjs/nest)
 Using Prima ORM and SQLite DB as demo
 
-Please use Node V.18 or higher
+This Demo includes sqlite DB with dummy data, you can [use another DB provider](https://www.prisma.io/docs/orm/prisma-schema/overview/data-sources) changing the datasoruce in prisma/schema.prisma file
+
