@@ -23,7 +23,6 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeeEntity } from './entities/employee.entity';
-import { ShiftEntity } from 'src/shifts/entities/shift.entity';
 
 @ApiTags('Employees')
 @Controller('employees')
@@ -111,7 +110,7 @@ export class EmployeesController {
   }
 
   @Get('schedule/:id')
-  @ApiOkResponse({ type: ShiftEntity, isArray: true })
+  @ApiOkResponse({ type: EmployeeEntity, isArray: true })
   @ApiOperation({
     summary: 'List an employee’s upcoming schedule',
   })

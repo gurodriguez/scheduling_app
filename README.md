@@ -21,7 +21,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-Theh go to http://localhost:3000/api to test the API endpoints
+Then go to http://localhost:3000/api to test the API endpoints
 
 ## Test
 
