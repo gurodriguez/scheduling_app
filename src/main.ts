@@ -8,7 +8,6 @@ async function bootstrap() {
     .setTitle('Schedule App')
     .setDescription('API documentation')
     .setVersion('1.0')
-    .addTag('schedule')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
