@@ -135,13 +135,18 @@ export class ShiftsController {
     @Param('id') id: string,
     @Body() updateShiftDto: AssignShiftDto,
   ) {
-    try {
-      //Biz logic here, like validations of status, positions, etc
+    //Biz logic here, like validations of status, positions, etc
+      const data = await this.shiftsService.findOne({ id: +id });
+      if (data.statusId === 'closed') {
+        throw new NotFoundException('Shift close');
+      }
+      try {
       return await this.shiftsService.update({
         where: { id: Number(id) },
         data: updateShiftDto,
       });
     } catch (error) {
+      console.log(error);
       throw new UnprocessableEntityException(error.message);
     }
   }

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ShiftsController } from './shifts.controller';
 import { ShiftsService } from './shifts.service';
 import { PrismaService } from '../prisma.service';
+import { NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 
 describe('ShiftsController', () => {
   let controller: ShiftsController;
@@ -95,9 +96,29 @@ describe('ShiftsController', () => {
       const body = {
         employeeId: 0,
       };
+
+      jest.spyOn(service, 'findOne').mockImplementation(async () => shift);
       jest.spyOn(service, 'update').mockImplementation(async () => shift);
 
       expect(await controller.assignEmployee('mock-id', body)).toBe(shift);
+    });
+
+    it('should not asign employee to a closed shift', async () => {
+      const body = {
+        employeeId: 0,
+      };
+
+      const closedShift = {
+        ...shift,
+        statusId: 'closed',
+      };
+      jest
+        .spyOn(service, 'findOne')
+        .mockImplementation(async () => closedShift);
+
+      expect(
+        async () => await controller.assignEmployee('mock-id', body),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
